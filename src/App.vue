@@ -1,13 +1,23 @@
 <template>
-  <div id="app">
-    <img src="./assets/logo.png">
-    <router-view/>
+  <div id="app">    
+    <div class="fixed-nav" id="page-top">
+      <router-view name="navbar"></router-view>      
+      <div class="content-wrapper">
+        <transition name="fade" mode="out-in">
+          <router-view/>
+        </transition>
+        <router-view name="footer"></router-view>
+      </div>    
+    </div>
   </div>
 </template>
 
 <script>
 export default {
-  name: 'app'
+  name: 'app',
+  created () {
+    console.log('lol', this.$route)
+  }
 }
 </script>
 
@@ -16,8 +26,17 @@ export default {
   font-family: 'Avenir', Helvetica, Arial, sans-serif;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
-  text-align: center;
+  height: 100%;
+  width: 100%;
+  overflow: hidden;
   color: #2c3e50;
-  margin-top: 60px;
+}
+
+.fade-enter-active, .fade-leave-active {
+    transition: opacity .2s ease;
+}
+
+.fade-enter, .fade-leave-active {
+  opacity: 0
 }
 </style>

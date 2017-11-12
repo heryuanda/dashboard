@@ -1,15 +1,41 @@
 import Vue from 'vue'
 import Router from 'vue-router'
-import HelloWorld from '@/components/HelloWorld'
+import util from '@/utils/'
 
 Vue.use(Router)
 
-export default new Router({
+let router = new Router({
+  mode: 'history',
   routes: [
     {
       path: '/',
-      name: 'Hello',
-      component: HelloWorld
+      name: 'index',
+      redirect: '/login'
+    },
+    {
+      path: '/login',
+      name: 'login',
+      component: util.asyncView('Login')
+    },
+    {
+      path: '/dashboard',
+      name: 'dashboard',
+      components: {
+        default: util.asyncView('Dashboard'),
+        navbar: util.asyncComponent('NavigationBar'),
+        footer: util.asyncComponent('Footer')
+      }
+    },
+    {
+      path: '/dashboard/cards',
+      name: 'cards',
+      components: {
+        default: util.asyncView('Cards'),
+        navbar: util.asyncComponent('NavigationBar'),
+        footer: util.asyncComponent('Footer')
+      }
     }
   ]
 })
+
+export default router
